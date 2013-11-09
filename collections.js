@@ -17,7 +17,8 @@ Stories = new Meteor.Collection2('stories', {
     },
     description: {
       type: String,
-      label: "Overall Description"
+      label: "Overall",
+      optional: true
     },
     componentId: {
       type: String,

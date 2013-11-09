@@ -4,7 +4,7 @@ Template.storyForm.helpers({
   },
   componentOptions: function () {
     var components = Components.find({});
-    var options = [];
+    var options = [{label: '', value: ''}];
 
     components.forEach(function (component) {
       options.push({
@@ -26,7 +26,6 @@ Template.storyForm.helpers({
 
 var sharedStoryForm = {
   selectedStory: function () {
-    console.log(Session.get('selectedStory'))
     return Session.get('selectedStory');
   }
 };
