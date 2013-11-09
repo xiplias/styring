@@ -1,0 +1,31 @@
+<template name="storyForm">
+  {{#modal 'storyForm'}}
+    {{{modalHeader 'New Story'}}}
+    {{#autoForm schema=storiesCollection id="insertStoryForm" doc=selectedStory}}
+      {{#modalContent}}
+        <div class="form-group{{#if afFieldIsInvalid 'title'}} has-error{{/if}}">
+          {{afFieldLabel 'title'}}
+          {{afFieldInput 'title' value=title}}
+          {{#if afFieldIsInvalid 'title'}}
+            <span class="help-block">{{afFieldMessage 'title'}}</span>
+          {{/if}}
+        </div>
+        <div class="form-group{{#if afFieldIsInvalid 'componentId'}} has-error{{/if}}">
+          {{afFieldLabel 'componentId'}}
+          {{afFieldInput 'componentId' options=componentOptions}}
+          {{#if afFieldIsInvalid 'componentId'}}
+            <span class="help-block">{{afFieldMessage 'componentId'}}</span>
+          {{/if}}
+        </div>
+        <div class="form-group{{#if afFieldIsInvalid 'description'}} has-error{{/if}}">
+          {{afFieldLabel 'description'}}
+          {{afFieldInput 'description' rows='5'}}
+          {{#if afFieldIsInvalid 'description'}}
+            <span class="help-block">{{afFieldMessage 'description'}}</span>
+          {{/if}}
+        </div>
+      {{/modalContent}}
+      {{{modalFooter formState 'Save'}}
+    {{/autoForm}}
+  {{/modal}}
+</template>

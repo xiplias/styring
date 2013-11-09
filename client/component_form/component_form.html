@@ -1,0 +1,17 @@
+<template name="componentForm">
+  {{#modal 'componentForm'}}
+    {{{modalHeader 'New Story'}}}
+    {{#autoForm schema=componentsCollection id="insertComponentForm" doc=selectedComponent}}
+      {{#modalContent}}
+        <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
+          {{afFieldLabel 'name'}}
+          {{afFieldInput 'name'}}
+          {{#if afFieldIsInvalid 'name'}}
+            <span class="help-block">{{afFieldMessage 'name'}}</span>
+          {{/if}}
+        </div>
+      {{/modalContent}}
+      {{{modalFooter 'insert' 'Save'}}    
+    {{/autoForm}}
+  {{/modal}}
+</template>

@@ -1,0 +1,13 @@
+<template name="planning">
+  <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#componentForm">New Component</button>
+  <button class="btn" data-toggle="modal" data-target="#storyForm" id="storyFormButton">New Story</button>
+  <ul class="planning">
+    {{#each components}}
+      <li>{{>component}}</li>
+    {{/each}}
+    <li>{{>component}}</li>
+  </ul>
+
+  {{>storyForm}}
+  {{>componentForm}}
+</template>

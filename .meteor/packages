@@ -7,3 +7,10 @@ autopublish
 insecure
 preserve-inputs
 less
+accounts-github
+standard-app-packages
+bootstrap3-less
+iron-router
+accounts-ui
+collection2
+autoform

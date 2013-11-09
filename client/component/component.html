@@ -1,0 +1,14 @@
+<template name="component">
+  <div class="component">
+    <div class="component-top">
+      {{componentName}}
+    </div>
+    <div class="component-stories">
+      {{#each stories}}
+        <div class="component-story">
+          {{title}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</template>
