@@ -5,9 +5,7 @@
     </div>
     <div class="component-stories">
       {{#each stories}}
-        <div class="component-story" style="border-left: 7px {{color}} solid">
-          {{title}}
-        </div>
+        {{>story}}
       {{/each}}
     </div>
   </div>

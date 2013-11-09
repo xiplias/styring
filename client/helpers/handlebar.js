@@ -17,3 +17,8 @@ Handlebars.registerHelper('modalFooter', function(type, text) {
   var buttonType = type === "insert" || type === "update" ? "submit" : "button";
   return '<div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="' + buttonType + '" class="btn btn-primary ' + type + '">' + text + '</button></div>';
 });
+
+Handlebars.registerHelper('multiply', function (number, multiplier, min) {
+  if (!min || typeof min === "object") min = 0;
+  return number * multiplier > min ? number * multiplier : min;
+});
