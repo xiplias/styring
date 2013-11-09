@@ -17,17 +17,46 @@ Stories = new Meteor.Collection2('stories', {
     },
     description: {
       type: String,
-      label: "Overall",
+      label: "Description",
       optional: true
     },
     componentId: {
       type: String,
+      label: "Main component",
       optional: true
     }
   }
 });
 
-// Stories.callbacks({
+Tasks = new Meteor.Collection2('tasks', {
+  schema: {
+    name: {
+      type: String,
+      label: 'Name',
+      max: 200
+    },
+    description: {
+      type: String,
+      label: "Description",
+      optional: true
+    },
+    componentId: {
+      type: String,
+      label: "Component",
+      optional: true
+    },
+    storyId: {
+      type: String
+    },
+    points: {
+      type: String,
+      label: "Points",
+      optional: true
+    }
+  }
+});
+
+// Tasks.callbacks({
 //   insert: function(error, result) {
 //       if (error) {
 //           console.log("Insert Error:", error);

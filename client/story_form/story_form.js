@@ -3,19 +3,8 @@ Template.storyForm.helpers({
     return Stories;
   },
   componentOptions: function () {
-    var components = Components.find({});
-    var options = [{label: '', value: ''}];
-
-    components.forEach(function (component) {
-      options.push({
-        label: component.name,
-        value: component._id
-      });
-    });
-
-    return options;
+    return FormHelper.componentOptions();
   },
-  
   selectedStory: function () {
     return sharedStoryForm.selectedStory();
   },

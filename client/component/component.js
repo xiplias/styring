@@ -6,13 +6,27 @@ Template.component.helpers({
     return this.name || "Icebox";
   },
   color: function () {
-    return rainbow(100, parseInt(Math.random()*100));
+    //return rainbow(100, parseInt(Math.random()*100, 10));
+  },
+  points: function () {
+    var tasks = Tasks.find({storyId: this._id}, {points: 1}).fetch();
+
+    if (tasks.length > 0) {
+      return _.reduce(_.map(tasks, function(doc) {
+        return parseInt(doc.points, 10);
+      }), function (memo, num) {
+        return memo + num;
+      });
+    }
+
+    return 0;
   }
 });
 
 Template.component.events({
   'click .component-story': function () {
     Session.set('selectedStory', this);
+    Session.set('selectedTask', undefined);
     $('#storyForm').modal();
   }
 });

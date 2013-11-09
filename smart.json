@@ -1,7 +1,9 @@
 {
   "packages": {
     "iron-router": {},
-    "accounts-ui-bootstrap-3": {},
-    "bootstrap3-less": {}
+    "bootstrap3-less": {},
+    "collection2": {},
+    "autoform": {},
+    "jqueryui": {}
   }
 }
