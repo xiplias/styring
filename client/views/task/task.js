@@ -3,3 +3,9 @@ Template.task.helpers({
     return FormHelper.component(this.componentId).name;
   }
 });
+
+Template.task.events({
+  'click': function () {
+    
+  }
+});

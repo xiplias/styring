@@ -17,4 +17,10 @@
     {{/each}}
     <li class="clear"></li>
   <ul>
+  {{#modal 'taskForm'}}
+    {{{modalHeader 'New Story'}}}
+      {{#modalContent}}
+        {{>taskForm}}
+      {{/modalContent}}
+  {{/modal}}
 </template>

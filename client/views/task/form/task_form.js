@@ -2,6 +2,13 @@ Template.taskForm.helpers({
   tasksCollection: function () {
     return Tasks;
   },
+  selectedTask: function () {
+    return Session.get('selectedTask');
+  },
+  formState: function () {
+    return Session.get('selectedTask') ? 'update' : 'insert';
+  },
+
   pointsOptions: function () {
     return [
       { label: "0", value: "0"},
@@ -19,15 +26,10 @@ Template.taskForm.helpers({
 
     return users;
   },
-  selectedTask: function () {
-    return Session.get('selectedTask');
-  },
   componentOptions: function () {
     return FormHelper.componentOptions(true);
   },
-  formState: function () {
-    return Session.get('selectedTask') ? 'update' : 'insert';
-  },
+
   storyId: function () {
     return FormHelper.currentStoryId();
   },

@@ -5,7 +5,7 @@
       {{afFieldInput 'storyId' type="hidden" value=storyId}}
       <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
         {{afFieldLabel 'name'}}
-        {{afFieldInput 'name' value=name}}
+        {{afFieldInput 'name'}}
         {{#if afFieldIsInvalid 'name'}}
           <span class="help-block">{{afFieldMessage 'name'}}</span>
         {{/if}}
