@@ -1,0 +1,44 @@
+<template name="taskForm">
+  <div class="taskForm">
+    {{#autoForm schema=tasksCollection doc=selectedTask}}
+      {{afFieldInput 'projectId' type="hidden" value=projectId}}
+      {{afFieldInput 'storyId' type="hidden" value=storyId}}
+      <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
+        {{afFieldLabel 'name'}}
+        {{afFieldInput 'name' value=name}}
+        {{#if afFieldIsInvalid 'name'}}
+          <span class="help-block">{{afFieldMessage 'name'}}</span>
+        {{/if}}
+      </div>
+      <div class="form-group{{#if afFieldIsInvalid 'componentId'}} has-error{{/if}}">
+        {{afFieldLabel 'componentId'}}
+        {{afFieldInput 'componentId' options=componentOptions}}
+        {{#if afFieldIsInvalid 'componentId'}}
+          <span class="help-block">{{afFieldMessage 'componentId'}}</span>
+        {{/if}}
+      </div>
+      <div class="form-group{{#if afFieldIsInvalid 'points'}} has-error{{/if}}">
+        {{afFieldLabel 'points'}}
+        {{afFieldInput 'points' options=pointsOptions}}
+        {{#if afFieldIsInvalid 'points'}}
+          <span class="help-block">{{afFieldMessage 'points'}}</span>
+        {{/if}}
+      </div>
+      <div class="form-group{{#if afFieldIsInvalid 'assignId'}} has-error{{/if}}">
+        {{afFieldLabel 'assignId'}}
+        {{afFieldInput 'assignId' options=assignOptions}}
+        {{#if afFieldIsInvalid 'assignId'}}
+          <span class="help-block">{{afFieldMessage 'assignId'}}</span>
+        {{/if}}
+      </div>
+      <div class="form-group{{#if afFieldIsInvalid 'description'}} has-error{{/if}}">
+        {{afFieldLabel 'description'}}
+        {{afFieldInput 'description' rows='5'}}
+        {{#if afFieldIsInvalid 'description'}}
+          <span class="help-block">{{afFieldMessage 'description'}}</span>
+        {{/if}}
+      </div>
+      <button type="submit" class="btn btn-primary {{formState}}">Save</button>
+    {{/autoForm}}
+  </div>
+</template>
