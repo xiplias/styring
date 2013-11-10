@@ -1,6 +1,6 @@
 <template name="story">
   <div class="story {{#if isFinished}}story-is-finished{{/if}}" style="height: {{multiply points 25 40}}px">
-    {{title}}
-    {{points}}
+    {{taskCount}} | {{points}}
+    &nbsp;{{title}}
   </div>
 </template>

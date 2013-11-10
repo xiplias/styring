@@ -11,6 +11,9 @@ Template.story.helpers({
     }
     return points;
   },
+  taskCount: function () {
+    return Tasks.find({storyId: this._id}).fetch().length
+  },
   isFinished: function () {
     if (this._id) {
       var tasks = Tasks.find({storyId: this._id}).fetch();
