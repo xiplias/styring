@@ -2,11 +2,7 @@
   <div class="taskList">
     <b>Tasks</b>
     {{#each tasks}}
-      <div class="story-task">
-        <div class="story-task-points">{{points}}</div>
-        {{name}}
-        <div class="story-task-component">{{componentName}}</div>
-      </div>
+      {{>task}}
     {{/each}}
     <button id="jsNewStoryTask" class="btn">New Tasks</button>
   </div>

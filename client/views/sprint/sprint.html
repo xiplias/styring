@@ -4,19 +4,17 @@
   </h1>
   <ul class="sprint">
     {{#each users}}
-      <li>
-        <div class="sprint-top">
+      <li class="sprint-box">
+        <div class="sprint-box-top">
           {{profile.name}}
         </div>
-        <div class="sprint-tasks">
+        <div class="sprint-box-tasks">
           {{#each userTasks}}
-            <div class="sprint-task">
-              {{name}}
-              {{points}}
-            </div>
+            {{>task}}
           {{/each}}
         </div>
       </li>
     {{/each}}
+    <li class="clear"></li>
   <ul>
 </template>

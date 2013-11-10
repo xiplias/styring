@@ -28,13 +28,6 @@ Template.storyTasks.helpers({
   componentOptions: function () {
     return FormHelper.componentOptions(true);
   },
-  componentName: function () {
-    var component = Components.findOne({_id: this.componentId}, {name: 1});
-
-    if (component) {
-      return component.name;
-    }
-  },
   formState: function () {
     return Session.get('selectedTask') ? 'update' : 'insert';
   },

@@ -28,5 +28,8 @@ FormHelper = {
     var project = Session.get('currentProject');
 
     return project || {};
+  },
+  component: function (componentId) {
+    return Components.findOne({_id: componentId, projectId: FormHelper.currentProject()._id}) || {};
   }
 };
