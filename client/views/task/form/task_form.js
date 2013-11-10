@@ -8,7 +8,6 @@ Template.taskForm.helpers({
   formState: function () {
     return Session.get('selectedTask') ? 'update' : 'insert';
   },
-
   pointsOptions: function () {
     return [
       { label: "0", value: "0"},
@@ -17,6 +16,13 @@ Template.taskForm.helpers({
       { label: "3", value: "3"},
       { label: "5", value: "5"},
       { label: "7", value: "7"}
+    ];
+  },
+  stateOptions: function () {
+    return [
+      { label: "Unstarted", value: "unstarted" },
+      { label: "Started", value: "started" },
+      { label: "Finished", value: "finished" }
     ];
   },
   assignOptions: function () {

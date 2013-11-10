@@ -24,6 +24,13 @@
           <span class="help-block">{{afFieldMessage 'points'}}</span>
         {{/if}}
       </div>
+      <div class="form-group{{#if afFieldIsInvalid 'state'}} has-error{{/if}}">
+        {{afFieldLabel 'state'}}
+        {{afFieldInput 'state' options=stateOptions}}
+        {{#if afFieldIsInvalid 'state'}}
+          <span class="help-block">{{afFieldMessage 'state'}}</span>
+        {{/if}}
+      </div>
       <div class="form-group{{#if afFieldIsInvalid 'assignId'}} has-error{{/if}}">
         {{afFieldLabel 'assignId'}}
         {{afFieldInput 'assignId' options=assignOptions}}

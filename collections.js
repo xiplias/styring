@@ -78,6 +78,9 @@ Tasks = new Meteor.Collection2('tasks', {
     assignId: {
       type: String,
       label: 'Assigned'
+    },
+    state: {
+      type: String
     }
   }
 });
