@@ -10,6 +10,18 @@ Template.story.helpers({
       });
     }
     return points;
+  },
+  isFinished: function () {
+    if (this._id) {
+      var tasks = Tasks.find({storyId: this._id}).fetch();
+      var finished = tasks.filter(function (task) {
+        if (task.state === "finished") {
+          return task;
+        }
+      });
+
+      return tasks.length > 0 ? tasks.length === finished.length : false;
+    }
   }
 });
 
