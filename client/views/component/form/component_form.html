@@ -3,6 +3,7 @@
     {{{modalHeader 'New Story'}}}
     {{#autoForm schema=componentsCollection id="insertComponentForm" doc=selectedComponent}}
       {{#modalContent}}
+        {{afFieldInput 'projectId' type="hidden" value=projectId}}
         <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
           {{afFieldLabel 'name'}}
           {{afFieldInput 'name'}}
@@ -11,7 +12,7 @@
           {{/if}}
         </div>
       {{/modalContent}}
-      {{{modalFooter 'insert' 'Save'}}    
+      {{{modalFooter 'insert' 'Save'}}
     {{/autoForm}}
   {{/modal}}
 </template>

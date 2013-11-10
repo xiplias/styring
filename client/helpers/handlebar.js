@@ -22,3 +22,13 @@ Handlebars.registerHelper('multiply', function (number, multiplier, min) {
   if (!min || typeof min === "object") min = 0;
   return number * multiplier > min ? number * multiplier : min;
 });
+
+Handlebars.registerHelper('session', function (name, objectKey) {
+  var session = Session.get(name);
+
+  if (objectKey && session) {
+    return session[objectKey];
+  }
+
+  return session
+});

@@ -12,6 +12,7 @@
   </div>
   <div class="taskForm">
     {{#autoForm schema=tasksCollection id="insertTaskForm" doc=selectedTask}}
+      {{afFieldInput 'projectId' type="hidden" value=projectId}}
       {{afFieldInput 'storyId' type="hidden" value=storyId}}
       <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
         {{afFieldLabel 'name'}}
@@ -44,5 +45,5 @@
       <button type="submit" class="btn btn-primary {{formState}}">Save</button>
     {{/autoForm}}
   </div>
-  <div class="clear"></div>   
+  <div class="clear"></div>
 </template>

@@ -1,9 +1,25 @@
+Projects = new Meteor.Collection2('projects', {
+  schema: {
+    name: {
+      type: String,
+      label: 'Name',
+      max: 200
+    },
+    velocity: {
+      type: Number
+    }
+  }
+});
+
 Components = new Meteor.Collection2('components', {
   schema: {
     name: {
       type: String,
       label: 'Name',
       max: 200
+    },
+    projectId: {
+      type: String
     }
   }
 });
@@ -24,6 +40,9 @@ Stories = new Meteor.Collection2('stories', {
       type: String,
       label: "Main component",
       optional: true
+    },
+    projectId: {
+      type: String
     }
   }
 });
@@ -40,6 +59,11 @@ Tasks = new Meteor.Collection2('tasks', {
       label: "Description",
       optional: true
     },
+    points: {
+      type: String,
+      label: "Points",
+      optional: true
+    },
     componentId: {
       type: String,
       label: "Component",
@@ -48,10 +72,8 @@ Tasks = new Meteor.Collection2('tasks', {
     storyId: {
       type: String
     },
-    points: {
-      type: String,
-      label: "Points",
-      optional: true
+    projectId: {
+      type: String
     }
   }
 });

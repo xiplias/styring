@@ -3,7 +3,7 @@ Template.storyTasks.helpers({
     return Tasks;
   },
   tasks: function () {
-    return Tasks.find({storyId: FormHelper.currentStoryId()});
+    return Tasks.find({storyId: FormHelper.currentStoryId(), projectId: FormHelper.currentProject()._id });
   },
   pointsOptions: function () {
     return [{
@@ -15,6 +15,15 @@ Template.storyTasks.helpers({
     }, {
       label: "2",
       value: "2"
+    }, {
+      label: "3",
+      value: "3"
+    }, {
+      label: "5",
+      value: "5"
+    }, {
+      label: "7",
+      value: "7"
     }];
   },
   selectedTask: function () {
@@ -35,6 +44,9 @@ Template.storyTasks.helpers({
   },
   storyId: function () {
     return FormHelper.currentStoryId();
+  },
+  projectId: function () {
+    return FormHelper.currentProject()._id
   }
 });
 

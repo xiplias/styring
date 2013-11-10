@@ -1,6 +1,6 @@
 Template.planning.helpers({
   components: function () {
-    return Components.find({});
+    return Components.find({projectId: FormHelper.currentProject()._id});
   }
 });
 

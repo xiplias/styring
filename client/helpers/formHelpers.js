@@ -1,7 +1,7 @@
 FormHelper = {
   componentOptions: function (hideIcebox) {
-    var components = Components.find({});
-    
+    var components = Components.find({projectId: FormHelper.currentProject()._id});
+
     var options = [];
 
     if (!hideIcebox) {
@@ -23,5 +23,10 @@ FormHelper = {
     if (story) {
       return story._id;
     }
+  },
+  currentProject: function () {
+    var project = Session.get('currentProject');
+
+    return project || {};
   }
 };

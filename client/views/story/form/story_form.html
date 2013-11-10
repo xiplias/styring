@@ -4,6 +4,7 @@
       {{#modalContent}}
         <div class="storyDetails">
           {{#autoForm schema=storiesCollection id="insertStoryForm" doc=selectedStory}}
+            {{afFieldInput 'projectId' type="hidden" value=projectId}}
             <div class="form-group{{#if afFieldIsInvalid 'title'}} has-error{{/if}}">
               {{afFieldLabel 'title'}}
               {{afFieldInput 'title' value=title}}
@@ -25,7 +26,8 @@
                 <span class="help-block">{{afFieldMessage 'description'}}</span>
               {{/if}}
             </div>
-          {{/autoForm}}      
+            <button type="submit" class="btn btn-primary {{formState}}">Save</button>
+          {{/autoForm}}
         </div>
         <div class="tasksDetails">
           {{>storyTasks}}

@@ -3,33 +3,29 @@ Router.configure({
 });
 
 Router.map(function () {
-  /**
-   * The route's name is "home"
-   * The route's template is also "home"
-   * The default action will render the home template
-   */
-
-  this.route('planning', {
+  this.route('home', {
     path: '/',
-    template: 'planning'
+    template: 'home'
   });
 
   this.route('planning', {
-    path: '/planning',
-    template: 'planning'
+    path: '/projects/:_id/planning',
+    template: 'planning',
+    load: function () {
+      Session.set('currentProject', Projects.findOne({_id: this.params._id}));
+    },
   });
 
   this.route('sprint', {
-    path: '/sprint',
-    template: 'sprint'
+    path: '/projects/:_id/sprint',
+    template: 'sprint',
+    load: function () {
+      Session.set('currentProject', Projects.findOne({_id: this.params._id}));
+    },
   });
 
-  /**
-   * The route's name is "posts"
-   * The route's path is "/posts"
-   * The route's template is inferred to be "posts"
-   */
-  this.route('posts', {
-    path: '/posts'
+  this.route('new_project', {
+    path: '/projects/new',
+    template: 'projectNew'
   });
 });

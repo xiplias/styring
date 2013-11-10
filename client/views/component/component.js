@@ -1,6 +1,6 @@
 Template.component.helpers({
   stories: function () {
-    return Stories.find({componentId: this._id});
+    return Stories.find({componentId: this._id, projectId: Session.get('currentProject')._id});
   },
   componentName: function () {
     return this.name || "Icebox";

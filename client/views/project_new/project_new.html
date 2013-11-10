@@ -1,0 +1,20 @@
+<template name="projectNew">
+  <h1>New Project</h1>
+  {{#autoForm schema=projectsCollection doc=selectedProject}}
+    <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
+      {{afFieldLabel 'name'}}
+      {{afFieldInput 'name' value=name}}
+      {{#if afFieldIsInvalid 'name'}}
+        <span class="help-block">{{afFieldMessage 'name'}}</span>
+      {{/if}}
+    </div>
+    <div class="form-group{{#if afFieldIsInvalid 'velocity'}} has-error{{/if}}">
+      {{afFieldLabel 'velocity'}}
+      {{afFieldInput 'velocity'}}
+      {{#if afFieldIsInvalid 'velocity'}}
+        <span class="help-block">{{afFieldMessage 'velocity'}}</span>
+      {{/if}}
+    </div>
+    <button type="submit" class="btn btn-primary {{formState}}">Save</button>
+  {{/autoForm}}
+</template>

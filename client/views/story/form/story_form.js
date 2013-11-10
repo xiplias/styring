@@ -10,6 +10,9 @@ Template.storyForm.helpers({
   },
   formState: function () {
     return sharedStoryForm.selectedStory() ? 'update' : 'insert';
+  },
+  projectId: function () {
+    return FormHelper.currentProject()._id;
   }
 });
 
