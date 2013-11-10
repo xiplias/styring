@@ -33,12 +33,12 @@ Stories = new Meteor.Collection2('stories', {
     },
     description: {
       type: String,
-      label: "Description",
+      label: 'Description',
       optional: true
     },
     componentId: {
       type: String,
-      label: "Main component",
+      label: 'Main component',
       optional: true
     },
     projectId: {
@@ -56,17 +56,17 @@ Tasks = new Meteor.Collection2('tasks', {
     },
     description: {
       type: String,
-      label: "Description",
+      label: 'Description',
       optional: true
     },
     points: {
       type: String,
-      label: "Points",
+      label: 'Points',
       optional: true
     },
     componentId: {
       type: String,
-      label: "Component",
+      label: 'Component',
       optional: true
     },
     storyId: {
@@ -74,6 +74,10 @@ Tasks = new Meteor.Collection2('tasks', {
     },
     projectId: {
       type: String
+    },
+    assignId: {
+      type: String,
+      label: 'Assigned'
     }
   }
 });
@@ -81,22 +85,22 @@ Tasks = new Meteor.Collection2('tasks', {
 // Tasks.callbacks({
 //   insert: function(error, result) {
 //       if (error) {
-//           console.log("Insert Error:", error);
+//           console.log('Insert Error:', error);
 //       } else {
-//           alert("Inserted!");
-//           console.log("Insert Result:", result);
+//           alert('Inserted!');
+//           console.log('Insert Result:', result);
 //       }
 //   },
 //   update: function(error) {
 //       if (error) {
-//           console.log("Update Error:", error);
+//           console.log('Update Error:', error);
 //       } else {
-//           alert("Updated!");
+//           alert('Updated!');
 //       }
 //   },
 //   remove: function(error) {
 //       if (error) {
-//           console.log("Remove Error:", error);
+//           console.log('Remove Error:', error);
 //       }
 //   }
 // });

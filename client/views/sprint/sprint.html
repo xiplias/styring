@@ -3,8 +3,20 @@
   <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#componentForm">New Task</button>
   </h1>
   <ul class="sprint">
-    <li>
-
-    </li>
+    {{#each users}}
+      <li>
+        <div class="sprint-top">
+          {{profile.name}}
+        </div>
+        <div class="sprint-tasks">
+          {{#each userTasks}}
+            <div class="sprint-task">
+              {{name}}
+              {{points}}
+            </div>
+          {{/each}}
+        </div>
+      </li>
+    {{/each}}
   <ul>
 </template>
