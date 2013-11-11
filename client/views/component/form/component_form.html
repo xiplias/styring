@@ -1,6 +1,6 @@
 <template name="componentForm">
   {{#modal 'componentForm'}}
-    {{{modalHeader 'New Story'}}}
+    {{{modalHeader 'New Component'}}}
     {{#autoForm schema=componentsCollection id="insertComponentForm" doc=selectedComponent}}
       {{#modalContent}}
         {{afFieldInput 'projectId' type="hidden" value=projectId}}
