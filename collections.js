@@ -20,6 +20,10 @@ Components = new Meteor.Collection2('components', {
     },
     projectId: {
       type: String
+    },
+    storyOrder: {
+      type: Array,
+      optional: true
     }
   }
 });
@@ -77,7 +81,8 @@ Tasks = new Meteor.Collection2('tasks', {
     },
     assignId: {
       type: String,
-      label: 'Assigned'
+      label: 'Assigned',
+      optional: true
     },
     state: {
       type: String

@@ -5,9 +5,9 @@
   </h1>
   <ul class="planning">
     {{#each components}}
-      <li>{{>component}}</li>
+      <li class="planning-component">{{>component}}</li>
     {{/each}}
-    <li>{{>component}}</li>
+    <li class="clear"></li>
   </ul>
 
   {{>storyForm}}

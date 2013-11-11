@@ -1,11 +1,15 @@
 <template name="storyTasks">
+
   <div class="taskList">
     <b>Tasks</b>
+    <div class="tasks">
     {{#each tasks}}
       {{>task}}
     {{/each}}
+    </div>
     <button id="jsNewStoryTask" class="btn">New Tasks</button>
   </div>
+
   {{>taskForm}}
   <div class="clear"></div>
 </template>

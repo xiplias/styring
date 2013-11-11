@@ -1,6 +1,22 @@
 Template.component.helpers({
   stories: function () {
-    return Stories.find({componentId: this._id, projectId: Session.get('currentProject')._id});
+    var storyOrder = Components.findOne({_id: this._id}).storyOrder;
+    var stories = Stories.find({componentId: this._id, projectId: Session.get('currentProject')._id}).fetch();
+    var mappedStories = {}
+    var orderedStories = [];
+    stories.forEach(function (story) {
+      mappedStories[story._id] = story;
+    });
+
+    var orderStories = storyOrder.forEach(function (order) {
+      var story = mappedStories[order];
+      if(story) {
+        orderedStories.push(story);
+        delete mappedStories[order];
+      }
+    });
+
+    return orderedStories.concat(_.toArray(mappedStories));
   },
   componentName: function () {
     return this.name || "Icebox";
@@ -9,6 +25,21 @@ Template.component.helpers({
     //return rainbow(100, parseInt(Math.random()*100, 10));
   }
 });
+
+Template.component.rendered = function () {
+  var component = this.data;
+
+  $(this.firstNode).find(".component-stories").sortable({
+    update: function( event, ui ) {
+      var listOrder = getComponentStories(this);
+      Components.update({_id: component._id}, { $set: { storyOrder: listOrder }});
+    }
+  });
+};
+
+function getComponentStories (list) {
+  return $(list).sortable('toArray');
+}
 
 function get_random_color() {
     var letters = '0123456789ABCDEF'.split('');
