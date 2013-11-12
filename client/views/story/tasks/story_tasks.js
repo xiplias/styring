@@ -1,6 +1,15 @@
 Template.storyTasks.helpers({
   tasks: function () {
     return Tasks.find({storyId: FormHelper.currentStoryId(), projectId: FormHelper.currentProject()._id });
+  },
+  isSelected: function () {
+    var selectedTask = Session.get('selectedTask');
+    console.log(selectedTask);
+    if (selectedTask) {
+      return this._id === selectedTask._id;
+    }
+
+    return false;
   }
 });
 

@@ -1,13 +1,13 @@
 <template name="storyTasks">
 
   <div class="taskList">
-    <b>Tasks</b>
-    <div class="tasks">
+    <b>Tasks</b><button id="jsNewStoryTask" class="btn">New Tasks</button>
+    <ul class="tasks">
     {{#each tasks}}
-      {{>task}}
+      <li class="{{#if isSelected}}task-selected{{/if}}">{{>task}}</li>
     {{/each}}
     </div>
-    <button id="jsNewStoryTask" class="btn">New Tasks</button>
+
   </div>
 
   {{>taskForm}}
