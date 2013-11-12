@@ -3,24 +3,24 @@ Template.sprint.helpers({
     return Meteor.users.find();
   },
   userTasks: function () {
-    var components  = Components.find({projectId: FormHelper.currentProject()._id}),
-        tasks       = Tasks.find({assignId: this._id, projectId: FormHelper.currentProject()._id}),
-        
-    componentStories = components.map(function (component) {
-      return Stories.find({componentId: component._id}).fetch();
-    })[0];
+    var components  = Components.find({projectId: FormHelper.currentProject()._id});
 
-    console.log(componentStories);
-
-    var sortedStories = _.flatten(_.zip(componentStories).filter(function (e) {
-      return e;
-    }));
-
-    var sortedTasks = sortedStories.map(function (story) {
-      return Tasks.find({storyId: story._id}).fetch();
+    // Get Stories from each component and use the our sort algoritm
+    var componentStories = components.map(function (component) {
+      var stories = Stories.find({componentId: component._id}).fetch(),
+          sortedStories = StoriesLib.orderByOrderList(stories, component.storyOrder);
+      return sortedStories;
     });
 
-    return _.flatten(sortedTasks);
+    var zippedStories = StoriesLib.mergeByZipper(componentStories);
+
+    var sortedTasks = _.chain(zippedStories).map(function (story) {
+      var tasks = Tasks.find({storyId: story._id, assignId: this._id}).fetch();
+      console.log(tasks);
+      return tasks;
+    }).flatten().value();
+
+    return sortedTasks;
   }
 });
 

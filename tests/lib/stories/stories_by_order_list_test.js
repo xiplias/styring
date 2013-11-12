@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 suite('StoriesLib', function() {
-  test('storiesByOrderList with order', function(done, server, client) {
+  test('orderByOrderList with order', function(done, server, client) {
     client.eval(function () {
       var stories = [
         {_id: 'id1'},
@@ -11,20 +11,20 @@ suite('StoriesLib', function() {
       ];
       var storyOrder = ['id4', 'id2'];
 
-      emit('tasks', StoriesLib.storiesByOrderList(stories, storyOrder));
-    }).once('tasks', function (tasks) {
+      emit('stories', StoriesLib.orderByOrderList(stories, storyOrder));
+    }).once('stories', function (stories) {
        var finalStoriesInOrder = [
         {_id: 'id4'},
         {_id: 'id2'},
         {_id: 'id1'},
         {_id: 'id3'}
       ];
-      assert.deepEqual(tasks, finalStoriesInOrder);
+      assert.deepEqual(stories, finalStoriesInOrder);
       done();
     });
   });
 
-  test('storiesByOrderList with NO order', function(done, server, client) {
+  test('orderByOrderList with NO order', function(done, server, client) {
     client.eval(function () {
       var stories = [
         {_id: 'id1'},
@@ -32,18 +32,18 @@ suite('StoriesLib', function() {
       ];
       var storyOrder;
 
-      emit('tasks', StoriesLib.storiesByOrderList(stories, storyOrder));
-    }).once('tasks', function (tasks) {
+      emit('stories', StoriesLib.orderByOrderList(stories, storyOrder));
+    }).once('stories', function (stories) {
        var finalStoriesInOrder = [
         {_id: 'id1'},
         {_id: 'id2'}
       ];
-      assert.deepEqual(tasks, finalStoriesInOrder);
+      assert.deepEqual(stories, finalStoriesInOrder);
       done();
     });
   });
 
-  test('storiesByOrderList with empty array', function(done, server, client) {
+  test('orderByOrderList with empty array', function(done, server, client) {
     client.eval(function () {
       var stories = [
         {_id: 'id1'},
@@ -51,18 +51,18 @@ suite('StoriesLib', function() {
       ];
       var storyOrder = [];
 
-      emit('tasks', StoriesLib.storiesByOrderList(stories, storyOrder));
-    }).once('tasks', function (tasks) {
+      emit('stories', StoriesLib.orderByOrderList(stories, storyOrder));
+    }).once('stories', function (stories) {
        var finalStoriesInOrder = [
         {_id: 'id1'},
         {_id: 'id2'}
       ];
-      assert.deepEqual(tasks, finalStoriesInOrder);
+      assert.deepEqual(stories, finalStoriesInOrder);
       done();
     });
   });
 
-  test('storiesByOrderList sort of story that do not exist', function(done, server, client) {
+  test('orderByOrderList sort of story that do not exist', function(done, server, client) {
     client.eval(function () {
       var stories = [
         {_id: 'id1'},
@@ -70,13 +70,13 @@ suite('StoriesLib', function() {
       ];
       var storyOrder = ['id3'];
 
-      emit('tasks', StoriesLib.storiesByOrderList(stories, storyOrder));
-    }).once('tasks', function (tasks) {
+      emit('stories', StoriesLib.orderByOrderList(stories, storyOrder));
+    }).once('stories', function (stories) {
       var finalStoriesInOrder = [
         {_id: 'id1'},
         {_id: 'id2'}
       ];
-      assert.deepEqual(tasks, finalStoriesInOrder);
+      assert.deepEqual(stories, finalStoriesInOrder);
       done();
     });
   });

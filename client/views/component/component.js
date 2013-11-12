@@ -3,7 +3,7 @@ Template.component.helpers({
     var storyOrder     = Components.findOne({_id: this._id}).storyOrder,
         stories        = Stories.find({componentId: this._id, projectId: Session.get('currentProject')._id}).fetch();
 
-    return StoriesLib.storiesByOrderList(stories, storyOrder);
+    return StoriesLib.orderByOrderList(stories, storyOrder);
   },
   componentName: function () {
     return this.name || 'Icebox';

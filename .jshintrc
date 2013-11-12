@@ -12,6 +12,7 @@
   	"Tasks": false,
     "Sprint": false,
     "StoriesLib": false,
+    "FormHelper": false,
     "$": false,
     "console": false,
     "_": false,
