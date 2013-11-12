@@ -2,19 +2,22 @@
   "undef": true,
   "unused": true,
   "strict": false,
-  "globals": { 
+  "globals": {
   	"Meteor": false,
   	"Template": false,
   	"Session": false,
   	"Projects": false,
-  	"Components": false, 
+  	"Components": false,
   	"Stories": false,
   	"Tasks": false,
     "Sprint": false,
+    "StoriesLib": false,
     "$": false,
     "console": false,
     "_": false,
     "suite": false,
-    "test": false
+    "test": false,
+    "emit": false,
+    "require": false
   }
 }
