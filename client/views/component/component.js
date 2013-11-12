@@ -7,9 +7,6 @@ Template.component.helpers({
   },
   componentName: function () {
     return this.name || 'Icebox';
-  },
-  color: function () {
-    //return rainbow(100, parseInt(Math.random()*100, 10));
   }
 });
 
