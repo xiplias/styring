@@ -1,9 +1,14 @@
 Template.component.helpers({
   stories: function () {
-    var storyOrder = Components.findOne({_id: this._id}).storyOrder;
-    var stories = Stories.find({componentId: this._id, projectId: Session.get('currentProject')._id}).fetch();
-    var mappedStories = {}
-    var orderedStories = [];
+    var storyOrder     = Components.findOne({_id: this._id}).storyOrder,
+        stories        = Stories.find({componentId: this._id, projectId: Session.get('currentProject')._id}).fetch(),
+        mappedStories  = {},
+        orderedStories = [];
+
+    if (storyOrder === undefined) {
+      return stories;
+    }
+
     stories.forEach(function (story) {
       mappedStories[story._id] = story;
     });
