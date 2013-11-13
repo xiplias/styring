@@ -6,6 +6,6 @@ Template.projectNew.helpers({
     return Session.get('selectedProject');
   },
   formState: function () {
-    return Session.get('selectedProject') ? 'update' : 'insert';
+    return this ? 'update' : 'insert';
   }
 });

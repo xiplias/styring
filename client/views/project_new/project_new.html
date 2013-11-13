@@ -1,6 +1,6 @@
 <template name="projectNew">
   <h1>New Project</h1>
-  {{#autoForm schema=projectsCollection doc=selectedProject}}
+  {{#autoForm schema=projectsCollection doc=this}}
     <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
       {{afFieldLabel 'name'}}
       {{afFieldInput 'name' value=name}}

@@ -28,4 +28,12 @@ Router.map(function () {
     path: '/projects/new',
     template: 'projectNew'
   });
+
+  this.route('new_project', {
+    path: '/projects/:_id/edit',
+    template: 'projectNew',
+    data: function () {
+      return Projects.findOne({_id: this.params._id});
+    },
+  });
 });
