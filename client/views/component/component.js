@@ -12,13 +12,14 @@ Template.component.helpers({
 
 Template.component.rendered = function () {
   var component = this.data;
-
-  $(this.firstNode).find('.component-stories').sortable({
-    update: function () {
-      var listOrder = getComponentStoriesFromDOM(this);
-      Components.update({_id: component._id}, { $set: { storyOrder: listOrder }});
+  console.log(this.firstNode);
+  var list = $(this.firstNode).find('.component-stories');
+  var sortable = list.sortable({
+    connectWith: ".component_" + list.data('id'),
+    stop: function () {
+      console.log($('.component-stories').sortable('toArray'));
     }
-  });
+  }).disableSelection();
 };
 
 function getComponentStoriesFromDOM (list) {

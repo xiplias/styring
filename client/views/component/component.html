@@ -1,12 +1,10 @@
 <template name="component">
+  <div class="component-top">{{velocity}} {{name}}</div>
   <div class="component">
-    <div class="component-top">
-      {{componentName}}
-    </div>
-    <ul class="component-stories">
-      {{#each stories}}
-        <li id="{{_id}}">{{>story}}</li>
-      {{/each}}
-    </ul>
+      <ul class="component-stories component_{{_id}}" data-id="{{_id}}">
+        {{#each componentStories}}
+          <li id="{{_id}}">{{>story}}</li>
+        {{/each}}
+      </ul>
   </div>
 </template>
