@@ -11,6 +11,33 @@ Projects = new Meteor.Collection2('projects', {
   }
 });
 
+Sprints = new Meteor.Collection2('sprints', {
+  schema: {
+    projectId: {
+      type: String
+    },
+    startDate: {
+      type: Date,
+      optional: true
+    },
+    endDate: {
+      type: Date,
+      optional: true
+    },
+    velocity: {
+      type: Number
+    },
+    actualVelosity: {
+      type: Number,
+      optional: true
+    },
+    storySort: {
+      type: Array,
+      optional: true
+    }
+  }
+});
+
 Components = new Meteor.Collection2('components', {
   schema: {
     name: {

@@ -13,3 +13,7 @@ Meteor.publish("stories", function () {
 Meteor.publish("tasks", function () {
   return Tasks.find();
 });
+
+Meteor.publish("sprints", function () {
+  return Sprints.find();
+});

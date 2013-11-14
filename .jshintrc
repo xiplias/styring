@@ -10,7 +10,7 @@
   	"Components": false,
   	"Stories": false,
   	"Tasks": false,
-    "Sprint": false,
+    "Sprints": false,
     "StoriesLib": false,
     "FormHelper": false,
     "$": false,
