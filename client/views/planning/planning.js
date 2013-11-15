@@ -34,51 +34,19 @@ Template.planning.helpers({
     console.log(this);
   },
   sprints: function () {
-    var project = FormHelper.currentProject(),
-        components       = Components.find({projectId: project._id}).fetch(),
-        componentStories = components.map(function (component) {
-          return Stories.find({componentId: component._id}).fetch();
-        }),
-        zippedStories    = StoriesLib.mergeByZipper(componentStories),
-        sprints = [],
-        sprintCount = 0,
-        sprintVelosity = 0,
-        sprintComponents = {},
-        storyCount = zippedStories.length;
+    var project = FormHelper.currentProject();
+    if (project.sprints) {
+      var data = JSON.parse(project.sprints),
+          components = Components.find({projectId: project._id}).fetch();
 
+      data.push(components.map(function () {
+        return [];
+      }));
 
-    zippedStories.forEach(function (story, index) {
-      // Put stories on components
-      if (!sprintComponents[story.componentId]) {
-        sprintComponents[story.componentId] = [];
-      }
-      var componentVelocity = _.reduce(Tasks.find({storyId: story._id}).fetch(), function (memo, num) {
-        return memo + parseInt(num.points, 10);
-      }, 0);
-
-      sprintVelosity = sprintVelosity + componentVelocity;
-      sprintComponents[story.componentId].push(story);
-
-
-      // If velosity is met or last story in array
-      // Put the component into the sprint and clear components array for next sprint
-      if (sprintVelosity >= project.velocity || storyCount-1 === index) {
-        var sprint = {velocity: sprintVelosity, sprintComponents: []};
-        components.forEach(function (component) {
-          sprint.sprintComponents.push({_id: component._id, name: component.name, velocity: componentVelocity, componentStories: sprintComponents[component._id]});
-        });
-
-        sprints.push(sprint);
-
-        sprintCount++;
-        sprintVelosity = 0;
-
-        sprintComponents = {};
-      }
-    });
-
-    console.log(sprints);
-    return sprints;
+      return data;
+    } else {
+      return calculateSprint();
+    }
   },
   sprintLines: function () {
     var velocity = FormHelper.currentProject().velocity;
@@ -98,6 +66,53 @@ Template.planning.helpers({
     ];
   }
 });
+
+var calculateSprint = function () {
+  var project = FormHelper.currentProject(),
+      components       = Components.find({projectId: project._id}).fetch(),
+      componentStories = components.map(function (component) {
+        return Stories.find({componentId: component._id}).fetch();
+      }),
+      zippedStories    = StoriesLib.mergeByZipper(componentStories),
+      sprints = [],
+      sprintCount = 0,
+      sprintVelosity = 0,
+      sprintComponents = {},
+      storyCount = zippedStories.length;
+
+  zippedStories.forEach(function (story, index) {
+    // Put stories on components
+    if (!sprintComponents[story.componentId]) {
+      sprintComponents[story.componentId] = [];
+    }
+    var componentVelocity = _.reduce(Tasks.find({storyId: story._id}).fetch(), function (memo, num) {
+      return memo + parseInt(num.points, 10);
+    }, 0);
+
+    sprintVelosity = sprintVelosity + componentVelocity;
+    sprintComponents[story.componentId].push(story);
+
+
+    // If velosity is met or last story in array
+    // Put the component into the sprint and clear components array for next sprint
+    if (sprintVelosity >= project.velocity || storyCount-1 === index) {
+      var sprint = {velocity: sprintVelosity, sprintComponents: []};
+      components.forEach(function (component) {
+        sprint.sprintComponents.push({_id: component._id, name: component.name, velocity: componentVelocity, componentStories: sprintComponents[component._id]});
+      });
+
+      sprints.push(sprint);
+
+      sprintCount++;
+      sprintVelosity = 0;
+
+      sprintComponents = {};
+    }
+  });
+
+  console.log(sprints);
+  return sprints;
+};
 
 Template.planning.events({
   'click #storyFormButton': function () {

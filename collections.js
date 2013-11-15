@@ -7,6 +7,10 @@ Projects = new Meteor.Collection2('projects', {
     },
     velocity: {
       type: Number
+    },
+    sprints: {
+      type: String,
+      optional: true
     }
   }
 });

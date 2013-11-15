@@ -1,8 +1,8 @@
 <template name="component">
-  <div class="component-top">{{velocity}} {{name}}</div>
+  <div class="component-top">{{velocity}} {{componentName}}</div>
   <div class="component">
       <ul class="component-stories component_{{_id}}" data-id="{{_id}}">
-        {{#each componentStories}}
+        {{#each stories}}
           <li id="{{_id}}">{{>story}}</li>
         {{/each}}
       </ul>

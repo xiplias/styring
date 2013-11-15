@@ -1,30 +1,50 @@
 Template.component.helpers({
   stories: function () {
-    var storyOrder     = Components.findOne({_id: this._id}).storyOrder,
-        stories        = Stories.find({componentId: this._id, projectId: Session.get('currentProject')._id}).fetch();
-
-    return StoriesLib.orderByOrderList(stories, storyOrder);
+    if (this.stories) {
+      return this.stories.map(function (story) {
+        return Stories.findOne({_id: story});
+      });
+    }
   },
   componentName: function () {
-    return this.name || 'Icebox';
+    // console.log(this)
+    // return Components.findOne({_id: this.id}).name;
   }
 });
 
 Template.component.rendered = function () {
-  var component = this.data;
-  console.log(this.firstNode);
-  var list = $(this.firstNode).find('.component-stories');
-  var sortable = list.sortable({
-    connectWith: ".component_" + list.data('id'),
+  var list = $(this.lastNode).find('.component-stories');
+  list.sortable({
+    connectWith: '.component_' + list.data('id'),
     stop: function () {
-      console.log($('.component-stories').sortable('toArray'));
+      updatePlanningStructure();
     }
   }).disableSelection();
 };
 
-function getComponentStoriesFromDOM (list) {
-  return $(list).sortable('toArray');
-}
+var updatePlanningStructure = function () {
+  var DOMComponents = [[]],
+      uniqComponents = [],
+      iterator = 0;
+
+  $('.component-stories').each(function (index, component) {
+    var dom = $(component),
+        id  = dom.data('id');
+
+    if (_.contains(uniqComponents, id)) {
+      DOMComponents.push([]);
+      iterator = iterator + 1;
+      uniqComponents = [];
+    }
+
+    DOMComponents[iterator].push({
+      id: $(component).data('id'),
+      stories: $(component).sortable('toArray')
+    });
+  });
+
+  Projects.update({_id: FormHelper.currentProject()._id}, {$set: {sprints: JSON.stringify(DOMComponents)}});
+};
 
 // function get_random_color () {
 //     var letters = '0123456789ABCDEF'.split('');

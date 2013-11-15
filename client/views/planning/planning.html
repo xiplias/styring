@@ -3,13 +3,12 @@
   <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#componentForm">New Component</button>
   <button class="btn" data-toggle="modal" data-target="#storyForm" id="storyFormButton">New Story</button>
   </h1>
-  <div class="sprintLine" style="margin-top: 45px"></div>
 
   {{#each sprints}}
     <div class="sprintLine" style="margin-top: -10px">Sprint</div>
     <ul class="planning">
       {{velocity}}
-      {{#each sprintComponents}}
+      {{#each this}}
         <li class="planning-component">
           {{>component}}
         </li>
