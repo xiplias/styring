@@ -6,15 +6,15 @@
   </h1>
 
   {{#each sprints}}
-  <div class="sprint">
-    <div class="sprintLine">Sprint #{{iterator}}</div>
-    <ul class="planning">
-    {{#each components}}
-      <li class="planning-component">{{>component}}</li>
-    {{/each}}
-      <li class="clear"></li>
-    </ul>
-  </div>
+    <div class="sprint">
+      <div class="sprintLine">Sprint #{{iterator}}</div>
+      <ul class="planning" data-sprint-id="{{_id}}">
+        {{#each components}}
+          <li class="planning-component">{{>component}}</li>
+        {{/each}}
+        <li class="clear"></li>
+      </ul>
+    </div>
   {{/each}}
 
   {{>storyForm}}

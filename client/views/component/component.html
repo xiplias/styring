@@ -1,7 +1,7 @@
 <template name="component">
   <div class="component-top">{{velocity}} {{name}}</div>
   <div class="component">
-      <ul class="component-stories component_{{_id}}" data-id="{{_id}}">
+      <ul class="component-stories component_{{_id}}" data-component-id="{{_id}}">
         {{#each stories}}
           <li id="{{_id}}">{{>story}}</li>
         {{/each}}

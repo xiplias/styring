@@ -8,18 +8,27 @@ Template.planning.helpers({
         components = Components.find({projectId: project._id}).fetch(),
         data = [];
 
+        // Parse JSON
+        components = components.map(function (component) {
+          component.storyOrder = JSON.parse(component.storyOrder);
+
+          return component;
+        });
+
     sprints.forEach(function (sprint) {
-      var newSprint = {iterator: sprint.iterator, components: []};
+      var newSprint = {_id: sprint._id, iterator: sprint.iterator, components: []};
 
       components.forEach(function (component) {
-        var newComponent = {name: component.name, stories: Stories.find({componentId: component._id, sprintId: sprint._id}).fetch()};
+        var stories = Stories.find({componentId: component._id, sprintId: sprint._id}).fetch();
+        var sortedStories = FormHelper.byStoryOrder(stories, component.storyOrder[sprint._id]);
+
+        var newComponent = {_id: component._id, name: component.name, stories: sortedStories};
         newSprint.components.push(newComponent);
       });
 
       data.push(newSprint);
     });
 
-    console.log(data);
     return data;
   }
 });

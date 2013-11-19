@@ -78,11 +78,35 @@ Components = new Meteor.Collection2('components', {
       type: String
     },
     storyOrder: {
-      type: Array,
+      type: String,
       optional: true
     }
   }
 });
+
+Components.callbacks({
+  insert: function(error, result) {
+      if (error) {
+          console.log('Insert Error:', error);
+      } else {
+          alert('Inserted!');
+          console.log('Insert Result:', result);
+      }
+  },
+  update: function(error) {
+      if (error) {
+          console.log('Update Error:', error);
+      } else {
+          alert('Updated!');
+      }
+  },
+  remove: function(error) {
+      if (error) {
+          console.log('Remove Error:', error);
+      }
+  }
+});
+
 
 Stories = new Meteor.Collection2('stories', {
   schema: {
