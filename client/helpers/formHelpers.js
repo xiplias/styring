@@ -4,10 +4,6 @@ FormHelper = {
 
     var options = [];
 
-    if (!hideIcebox) {
-      options.push({label: 'Icebox', value: ''});
-    }
-
     components.forEach(function (component) {
       options.push({
         label: component.name,

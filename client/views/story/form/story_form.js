@@ -5,6 +5,16 @@ Template.storyForm.helpers({
   componentOptions: function () {
     return FormHelper.componentOptions();
   },
+  sprintOptions: function () {
+    var project = FormHelper.currentProject(),
+        sprints = Sprints.find({projectId: project._id}).fetch();
+
+    sprints = Sprints.find({projectId: project._id});
+
+    return sprints.map(function (sprint) {
+      return {label: "Sprint #" + sprint.iterator, value: sprint._id};
+    });
+  },
   selectedStory: function () {
     return sharedStoryForm.selectedStory();
   },

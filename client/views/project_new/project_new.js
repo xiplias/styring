@@ -6,6 +6,9 @@ Template.projectNew.helpers({
     return Session.get('selectedProject');
   },
   formState: function () {
-    return this ? 'update' : 'insert';
+    return this._id ? 'update' : 'insert';
+  },
+  sprintNumber: function () {
+    return this.sprintNumber || 1;
   }
 });

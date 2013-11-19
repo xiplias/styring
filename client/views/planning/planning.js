@@ -1,121 +1,53 @@
 Template.planning.helpers({
-  components: function () {
-    return Components.find({projectId: FormHelper.currentProject()._id});
-  },
   project: function () {
-    return FormHelper.currentProject();
-  },
-  // sprints: function () {
-  //   var project = FormHelper.currentProject(),
-  //       sprints = Sprints.find({projectId: project._id}).fetch();
-
-  //   if (sprints.length === 0) {
-  //     Sprints.insert({
-  //       projectId: project._id,
-  //       velocity: project.velocity
-  //     }, function () {
-  //       sprints = Sprints.find({projectId: project._id}).fetch();
-  //     });
-  //   }
-
-  //   return sprints;
-  // },
-  stories: function () {
-    console.log(this, _.toArray(this));
-    return _.toArray(this);
-  },
-  sprintComponentStories: function () {
-    return this[1];
-  },
-  componentName: function () {
-    //return Components.findOne({_id: this._id}).name;
-  },
-  test: function () {
-    console.log(this);
+    return  FormHelper.currentProject();
   },
   sprints: function () {
-    var project = FormHelper.currentProject();
-    if (project.sprints) {
-      var data = JSON.parse(project.sprints),
-          components = Components.find({projectId: project._id}).fetch();
+    var project = FormHelper.currentProject(),
+        sprints = Sprints.find({projectId: project._id}).fetch(),
+        components = Components.find({projectId: project._id}).fetch(),
+        data = [];
 
-      data.push(components.map(function () {
-        return [];
-      }));
+    sprints.forEach(function (sprint) {
+      var newSprint = {iterator: sprint.iterator, components: []};
 
-      return data;
-    } else {
-      return calculateSprint();
-    }
-  },
-  sprintLines: function () {
-    var velocity = FormHelper.currentProject().velocity;
-    var topMargin = 45;
-    var multiplier = 20;
-    return [
-      {
-        velocity: velocity,
-        iterator: 1,
-        height: topMargin + multiplier * velocity * 1
-      },
-      {
-        velocity: velocity,
-        iterator: 2,
-        height: topMargin + multiplier * velocity * 2
-      }
-    ];
+      components.forEach(function (component) {
+        var newComponent = {name: component.name, stories: Stories.find({componentId: component._id, sprintId: sprint._id}).fetch()};
+        newSprint.components.push(newComponent);
+      });
+
+      data.push(newSprint);
+    });
+
+    console.log(data);
+    return data;
   }
 });
 
-var calculateSprint = function () {
+var createEmptySprint = function () {
   var project = FormHelper.currentProject(),
-      components       = Components.find({projectId: project._id}).fetch(),
-      componentStories = components.map(function (component) {
-        return Stories.find({componentId: component._id}).fetch();
-      }),
-      zippedStories    = StoriesLib.mergeByZipper(componentStories),
-      sprints = [],
-      sprintCount = 0,
-      sprintVelosity = 0,
-      sprintComponents = {},
-      storyCount = zippedStories.length;
+      latestSprint = Sprints.find({projectId: project._id}, {
+        sort: {
+          _id: 1
+        },
+        limit: 1
+      }).fetch()[0];
 
-  zippedStories.forEach(function (story, index) {
-    // Put stories on components
-    if (!sprintComponents[story.componentId]) {
-      sprintComponents[story.componentId] = [];
-    }
-    var componentVelocity = _.reduce(Tasks.find({storyId: story._id}).fetch(), function (memo, num) {
-      return memo + parseInt(num.points, 10);
-    }, 0);
+  console.log(latestSprint);
 
-    sprintVelosity = sprintVelosity + componentVelocity;
-    sprintComponents[story.componentId].push(story);
-
-
-    // If velosity is met or last story in array
-    // Put the component into the sprint and clear components array for next sprint
-    if (sprintVelosity >= project.velocity || storyCount-1 === index) {
-      var sprint = {velocity: sprintVelosity, sprintComponents: []};
-      components.forEach(function (component) {
-        sprint.sprintComponents.push({_id: component._id, name: component.name, velocity: componentVelocity, componentStories: sprintComponents[component._id]});
-      });
-
-      sprints.push(sprint);
-
-      sprintCount++;
-      sprintVelosity = 0;
-
-      sprintComponents = {};
-    }
+  Sprints.insert({
+    projectId: project._id,
+    iterator: latestSprint.iterator+1,
+    velocity: project.velocity
   });
-
-  console.log(sprints);
-  return sprints;
 };
+
 
 Template.planning.events({
   'click #storyFormButton': function () {
     Session.set('selectedStory', undefined);
+  },
+  'click #newSprint': function () {
+    createEmptySprint();
   }
 });

@@ -11,6 +11,24 @@ Projects = new Meteor.Collection2('projects', {
     sprints: {
       type: String,
       optional: true
+    },
+    sprintNumber: {
+      type: Number
+    }
+  }
+});
+
+Projects.callbacks({
+  insert: function(error, projectId) {
+    if (error) {
+        console.log('Insert Error:', error);
+    } else {
+      var project = Projects.findOne({_id: projectId});
+      Sprints.insert({
+        projectId: project._id,
+        iterator: 1,
+        velocity: project.velocity
+      });
     }
   }
 });
@@ -19,6 +37,9 @@ Sprints = new Meteor.Collection2('sprints', {
   schema: {
     projectId: {
       type: String
+    },
+    iterator: {
+      type: Number
     },
     startDate: {
       type: Date,
@@ -36,6 +57,10 @@ Sprints = new Meteor.Collection2('sprints', {
       optional: true
     },
     storySort: {
+      type: Array,
+      optional: true
+    },
+    sprintSort: {
       type: Array,
       optional: true
     }
@@ -77,6 +102,9 @@ Stories = new Meteor.Collection2('stories', {
       optional: true
     },
     projectId: {
+      type: String
+    },
+    sprintId: {
       type: String
     }
   }

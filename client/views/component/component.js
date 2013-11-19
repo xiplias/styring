@@ -1,11 +1,4 @@
 Template.component.helpers({
-  stories: function () {
-    if (this.stories) {
-      return this.stories.map(function (story) {
-        return Stories.findOne({_id: story});
-      });
-    }
-  },
   componentName: function () {
     // console.log(this)
     // return Components.findOne({_id: this.id}).name;
@@ -16,34 +9,18 @@ Template.component.rendered = function () {
   var list = $(this.lastNode).find('.component-stories');
   list.sortable({
     connectWith: '.component_' + list.data('id'),
-    stop: function () {
+    receive: function (event, ui) {
+      console.log("receive", event, ui);
       updatePlanningStructure();
+    },
+    change: function (event, ui) {
+      console.log("change", event, ui);
     }
   }).disableSelection();
 };
 
 var updatePlanningStructure = function () {
-  var DOMComponents = [[]],
-      uniqComponents = [],
-      iterator = 0;
 
-  $('.component-stories').each(function (index, component) {
-    var dom = $(component),
-        id  = dom.data('id');
-
-    if (_.contains(uniqComponents, id)) {
-      DOMComponents.push([]);
-      iterator = iterator + 1;
-      uniqComponents = [];
-    }
-
-    DOMComponents[iterator].push({
-      id: $(component).data('id'),
-      stories: $(component).sortable('toArray')
-    });
-  });
-
-  Projects.update({_id: FormHelper.currentProject()._id}, {$set: {sprints: JSON.stringify(DOMComponents)}});
 };
 
 // function get_random_color () {

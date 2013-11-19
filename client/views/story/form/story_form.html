@@ -19,6 +19,13 @@
                 <span class="help-block">{{afFieldMessage 'componentId'}}</span>
               {{/if}}
             </div>
+            <div class="form-group{{#if afFieldIsInvalid 'sprintId'}} has-error{{/if}}">
+              {{afFieldLabel 'sprintId'}}
+              {{afFieldInput 'sprintId' options=sprintOptions}}
+              {{#if afFieldIsInvalid 'sprintId'}}
+                <span class="help-block">{{afFieldMessage 'sprintId'}}</span>
+              {{/if}}
+            </div>
             <div class="form-group{{#if afFieldIsInvalid 'description'}} has-error{{/if}}">
               {{afFieldLabel 'description'}}
               {{afFieldInput 'description' rows='5'}}

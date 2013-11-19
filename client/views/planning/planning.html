@@ -2,21 +2,23 @@
   <h1>Planning {{project.name}} ({{project.velocity}})
   <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#componentForm">New Component</button>
   <button class="btn" data-toggle="modal" data-target="#storyForm" id="storyFormButton">New Story</button>
+  <button class="btn" data-toggle="modal" id="newSprint">New Sprint</button>
   </h1>
 
   {{#each sprints}}
-    <div class="sprintLine" style="margin-top: -10px">Sprint</div>
+  <div class="sprint">
+    <div class="sprintLine">Sprint #{{iterator}}</div>
     <ul class="planning">
-      {{velocity}}
-      {{#each this}}
-        <li class="planning-component">
-          {{>component}}
-        </li>
-      {{/each}}
+    {{#each components}}
+      <li class="planning-component">{{>component}}</li>
+    {{/each}}
       <li class="clear"></li>
     </ul>
+  </div>
   {{/each}}
 
   {{>storyForm}}
   {{>componentForm}}
 </template>
+
+

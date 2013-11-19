@@ -1,6 +1,7 @@
 <template name="projectNew">
   <h1>New Project</h1>
   {{#autoForm schema=projectsCollection doc=this}}
+    {{afFieldInput 'sprintNumber' value=sprintNumber type="hidden"}}
     <div class="form-group{{#if afFieldIsInvalid 'name'}} has-error{{/if}}">
       {{afFieldLabel 'name'}}
       {{afFieldInput 'name' value=name}}

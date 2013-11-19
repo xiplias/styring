@@ -32,3 +32,7 @@ Handlebars.registerHelper('session', function (name, objectKey) {
 
   return session
 });
+
+Handlebars.registerHelper('debug', function (name, obj) {
+  console.log('debug', name, obj);
+});

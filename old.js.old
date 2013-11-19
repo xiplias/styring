@@ -1,0 +1,196 @@
+// Template.planning.helpers({
+//   sprints: function () {
+//     var project = FormHelper.currentProject();
+
+//     if (project.sprints) {
+//       var stories = [];
+//       var sprintOrder =  JSON.parse(project.sprints),
+//           last  =  _.last(order);
+
+//       sprintOrder.map(function (sprint) {
+//         return sprint.map(function (component) {
+//           var component = Component.find()
+//           component.name =
+//         });
+//       });
+//     }
+
+//     return calculateSprint();
+//   },
+//   components: function () {
+//     return this;
+//   },
+//   project: function () {
+//     return FormHelper.currentProject();
+//   },
+//   // sprints: function () {
+//   //   var project = FormHelper.currentProject(),
+//   //       sprints = Sprints.find({projectId: project._id}).fetch();
+
+//   //   if (sprints.length === 0) {
+//   //     Sprints.insert({
+//   //       projectId: project._id,
+//   //       velocity: project.velocity
+//   //     }, function () {
+//   //       sprints = Sprints.find({projectId: project._id}).fetch();
+//   //     });
+//   //   }
+
+//   //   return sprints;
+//   // },
+//   stories: function () {
+//     console.log(this, _.toArray(this));
+//     return _.toArray(this);
+//   },
+//   sprintComponentStories: function () {
+//     return this[1];
+//   },
+//   componentName: function () {
+//     //return Components.findOne({_id: this._id}).name;
+//   },
+//   test: function () {
+//     console.log("debug", this);
+//   },
+//   // sprints: function () {
+//   //   var project = FormHelper.currentProject();
+//   //   if (project.sprints) {
+//   //     var data = JSON.parse(project.sprints),
+//   //         components = Components.find({projectId: project._id}).fetch();
+
+//   //     data.push(components.map(function () {
+//   //       return [];
+//   //     }));
+
+//   //     return data;
+//   //   } else {
+//   //     return calculateSprint();
+//   //   }
+//   // },
+//   sprintLines: function () {
+//     var velocity = FormHelper.currentProject().velocity;
+//     var topMargin = 45;
+//     var multiplier = 20;
+//     return [
+//       {
+//         velocity: velocity,
+//         iterator: 1,
+//         height: topMargin + multiplier * velocity * 1
+//       },
+//       {
+//         velocity: velocity,
+//         iterator: 2,
+//         height: topMargin + multiplier * velocity * 2
+//       }
+//     ];
+//   }
+// });
+
+// var calculateSprint = function () {
+//   var project = FormHelper.currentProject(),
+//       components       = Components.find({projectId: project._id}).fetch(),
+//       componentStories = components.map(function (component) {
+//         return Stories.find({componentId: component._id}).fetch();
+//       }),
+//       zippedStories    = StoriesLib.mergeByZipper(componentStories),
+//       sprints = [],
+//       sprintCount = 0,
+//       sprintVelosity = 0,
+//       sprintComponents = {},
+//       storyCount = zippedStories.length;
+
+//   zippedStories.forEach(function (story, index) {
+//     // Put stories on components
+//     if (!sprintComponents[story.componentId]) {
+//       sprintComponents[story.componentId] = [];
+//     }
+//     var componentVelocity = _.reduce(Tasks.find({storyId: story._id}).fetch(), function (memo, num) {
+//       return memo + parseInt(num.points, 10);
+//     }, 0);
+
+//     sprintVelosity = sprintVelosity + componentVelocity;
+//     sprintComponents[story.componentId].push(story);
+
+
+//     // If velosity is met or last story in array
+//     // Put the component into the sprint and clear components array for next sprint
+//     if (sprintVelosity >= project.velocity || storyCount-1 === index) {
+//       var sprint = [];
+//       components.forEach(function (component) {
+//         sprint.push({_id: component._id, name: component.name, velocity: componentVelocity, stories: sprintComponents[component._id]});
+//       });
+
+//       sprints.push(sprint);
+
+//       sprintCount++;
+//       sprintVelosity = 0;
+
+//       sprintComponents = {};
+//     }
+//   });
+
+//   // Empty
+//   var emptySprint = [];
+//   components.forEach(function (component) {
+//     emptySprint.push({_id: component._id, name: component.name, velocity: 0, componentStories: []});
+//   });
+//   sprints.push(emptySprint);
+
+//   console.log(sprints);
+//   return sprints;
+// };
+
+
+
+    // var project = FormHelper.currentProject(),
+    //     sprints = Sprints.find({projectId: project._id}).fetch(),
+    //     components = Components.find({projectId: project._id}),
+    //     data = [],
+    //     usedStories = [];
+
+    // if (sprints.length === undefined) {
+    //   Sprints.insert({
+    //     projectId: project._id,
+    //     iterator: 1,
+    //     velocity: project.velocity
+    //   });
+
+    //   sprints = Sprints.find({projectId: project._id}).fetch();
+    // }
+
+    // var data = sprints.map(function (sprint) {
+    //   sprint.components = [];
+    //   components.map(function (component) {
+    //     console.log(component);
+    //     component.stories = [];
+
+    //     if (component.sprints && component.sprints[sprint._id]) {
+    //       component.sprints[sprint._id].forEach(function (storyId) {
+    //         usedStories.push(storyId);
+    //         component.stories.push(Stories.findOne({_id: storyId}));
+    //       });
+    //     }
+
+    //     sprint.components.push(component);
+
+    //     return component;
+    //   });
+
+    //   var lastSprint = _.last(sprints);
+    //   components.forEach(function (component) {
+    //     var stories = Stories.find({componentId: component._id}).fetch();
+    //     var leftStories = _.filter(stories, function (story) {
+    //       if (story.componentId === component._id && !_.contains(usedStories, story._id));
+    //     });
+    //     console.log(leftStories);
+
+    //     lastSprint.stories = lastSprint.stories.concat(leftStories);
+    //   });
+
+    //   data.push(sprint);
+
+    //   return sprint;
+    // });
+
+    // Adding sprint with stories not saved or sorted yet if last sprint is empty
+  //   console.log("sprint data", data);
+  // }
