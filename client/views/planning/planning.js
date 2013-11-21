@@ -42,8 +42,6 @@ var createEmptySprint = function () {
         limit: 1
       }).fetch()[0];
 
-  console.log(latestSprint);
-
   Sprints.insert({
     projectId: project._id,
     iterator: latestSprint.iterator+1,
