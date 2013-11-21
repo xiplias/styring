@@ -10,7 +10,10 @@ Template.planning.helpers({
 
         // Parse JSON
         components = components.map(function (component) {
-          component.storyOrder = JSON.parse(component.storyOrder);
+          if(component.storyOrder) {
+            component.storyOrder = JSON.parse(component.storyOrder);
+          }
+
 
           return component;
         });
@@ -20,9 +23,12 @@ Template.planning.helpers({
 
       components.forEach(function (component) {
         var stories = Stories.find({componentId: component._id, sprintId: sprint._id}).fetch();
-        var sortedStories = FormHelper.byStoryOrder(stories, component.storyOrder[sprint._id]);
 
-        var newComponent = {_id: component._id, name: component.name, stories: sortedStories};
+        if (component.storyOrder) {
+          stories = FormHelper.byStoryOrder(stories, component.storyOrder[sprint._id]);
+        }
+
+        var newComponent = {_id: component._id, name: component.name, stories: stories};
         newSprint.components.push(newComponent);
       });
 
